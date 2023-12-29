@@ -1,0 +1,20 @@
+package com.paulhennessey.aoc23;
+
+public class Button extends Module
+{
+    public Button(String name) 
+    {
+        Name = name;
+    }
+
+    @Override
+    protected void processPulse(String sender, Pulse pulse, PulseCount pulseCount) 
+    {
+        for(Module module : ConnectedModules)
+        {
+            module.processPulse(this.Name, pulse, pulseCount);
+        }
+
+        pulseCount.count++;
+    }    
+}

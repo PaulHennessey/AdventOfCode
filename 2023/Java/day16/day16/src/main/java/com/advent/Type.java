@@ -1,0 +1,10 @@
+package com.advent;
+
+public enum Type 
+{
+    EMPTYSPACE,
+    RIGHTLEANINGMIRROR,
+    LEFTLEANINGMIRROR,
+    VERTICALSPLITTER,
+    HORIZONTALSPLITTER
+}
