@@ -19,75 +19,68 @@ class AppTest
     @Test
     void testApp1() 
     {        
-        assertEquals(false, app.containsDisallowedSubstrings("ugknbfddgicrmopn"));
+        assertEquals(true, app.containsDoublePair("xyxy"));
     }
 
     @Test
     void testApp2() 
     {        
-        assertEquals(true, app.containsDisallowedSubstrings("ugknbfabddgicrmopn"));
-    }    
+        assertEquals(true, app.containsDoublePair("aabcdefgaa"));
+    }
 
     @Test
     void testApp3() 
-    {   
-        //assertEquals(false, app.containsConsecutiveCharacters("ugknbfbdagicrmopn"));     
-        assertEquals(false, app.containsConsecutiveCharacters("abca"));
-    }        
+    {        
+        assertEquals(false, app.containsDoublePair("aaa"));
+    }
 
     @Test
     void testApp4() 
     {        
-        assertEquals(true, app.containsConsecutiveCharacters("ugknbfabdggicrmopn"));
-    }            
+        assertEquals(true, app.containsTriplet("xyx"));
+    }
 
     @Test
     void testApp5() 
     {        
-        assertEquals(false, app.containsThreeVowels("gknbfabdgicrmpn"));
-    }        
+        assertEquals(true, app.containsTriplet("abcdefeghi"));
+    }
 
     @Test
     void testApp6() 
     {        
-        assertEquals(true, app.containsThreeVowels("ogknbfabdgicrmpn"));
-    }        
+        assertEquals(true, app.containsTriplet("aaa"));
+    }
 
     @Test
     void testApp7() 
     {        
-        assertEquals(true, app.stringIsNice("ugknbfddgicrmopn"));
+        assertEquals(true, app.stringIsNice("qjhvhtzxzqqjkmpb"));
     }        
 
     @Test
     void testApp8() 
     {        
-        assertEquals(true, app.stringIsNice("aaa"));
+        assertEquals(true, app.stringIsNice("xxyxx"));
     }        
 
     @Test
     void testApp9() 
     {        
-        assertEquals(false, app.stringIsNice("jchzalrnumimnmhp"));
+        assertEquals(false, app.stringIsNice("uurcxstgmygtbstg"));
     }        
 
     @Test
     void testApp10() 
     {        
-        assertEquals(false, app.stringIsNice("haegwjzuvuyypxyu"));
-    }        
-
-    @Test
-    void testApp11() 
-    {        
-        assertEquals(false, app.stringIsNice("dvszwmarrgswjxmb"));
+        assertEquals(false, app.stringIsNice("ieodomkazucvgmuy"));
     }        
 
     @Test
     void testApp12() throws IOException 
     {
         List<String> input = Files.readAllLines(path);                
-        assertEquals(238, app.countNiceStrings(input));
+        assertEquals(69, app.countNiceStrings(input));
     }        
 
     

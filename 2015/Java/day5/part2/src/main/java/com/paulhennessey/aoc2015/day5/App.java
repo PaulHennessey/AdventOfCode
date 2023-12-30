@@ -17,24 +17,19 @@ public class App
         return matcher.find();
     }
 
-    public boolean containsDisallowedSubstrings(String s)
+    public boolean containsDoublePair(String s)
     {
-        return processRegex("(ab|cd|pq|xy)", s);
+        return processRegex("(..).*\\1", s);
     }
 
-    public boolean containsConsecutiveCharacters(String s)
+    public boolean containsTriplet(String s)
     {
-        return processRegex("(.)\\1", s);
-    }
-
-    public boolean containsThreeVowels(String s)
-    {
-        return processRegex("(.*[aeiou]){3,}", s);
+        return processRegex("(.).\\1", s);
     }
 
     public boolean stringIsNice(String s)
     {
-        if(!containsDisallowedSubstrings(s) && containsConsecutiveCharacters(s) && containsThreeVowels(s))
+        if(containsDoublePair(s) && containsTriplet(s))
         {
             return true;    
         }
