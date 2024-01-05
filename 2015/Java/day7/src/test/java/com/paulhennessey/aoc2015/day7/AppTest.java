@@ -20,6 +20,7 @@ class AppTest
     @Test
     void testApp2() throws IOException 
     {
+        
         app.buildCircuit();
         app.setTestValue("b");
         assertEquals(14710, app.getTestValue("a"));
