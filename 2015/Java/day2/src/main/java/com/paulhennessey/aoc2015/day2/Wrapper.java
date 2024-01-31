@@ -10,25 +10,25 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Wrapper 
+public class Wrapper
 {
     static Path path = Paths.get("src/test/java/com/paulhennessey/aoc2015/day2/input.txt");
-     
-    public Wrapper() 
+
+    public Wrapper()
     {}
 
-    public static void main(String[] args) throws IOException 
+    public static void main(String[] args) throws IOException
     {
         Wrapper wrapper = new Wrapper();
         List<String> input = Files.readAllLines(path);
-        
+
         Instant start = Instant.now();
         int area = wrapper.calculateTotalArea(input);
         Instant end = Instant.now();
         Duration duration = Duration.between(start, end);
 
         System.out.println("Area: " + area + " Time: " + duration.toMillis() + "ms");
-      
+
         start = Instant.now();
         int ribbon = wrapper.calculateTotalRibbon(input);
         end = Instant.now();
@@ -37,28 +37,26 @@ public class Wrapper
         System.out.println("Ribbon: " + ribbon + " Time: " + duration.toMillis() + "ms");
     }
 
-    
+
 
     public int calculateArea(String input)
     {
         List<Integer> sides = parseInput(input);
 
-        return (3 * sides.get(0) * sides.get(1)) + 
-               (2 * sides.get(1) * sides.get(2)) + 
+        return (3 * sides.get(0) * sides.get(1)) +
+               (2 * sides.get(1) * sides.get(2)) +
                (2 * sides.get(2) * sides.get(0));
     }
 
+
     public int calculateTotalArea(List<String> input)
     {
-        int totalArea = 0;
-
-        for(String line : input)
-        {
-            totalArea += calculateArea(line);
-        }
-
-        return totalArea;
+        return input
+            .stream()
+            .mapToInt(this::calculateArea)
+            .sum();
     }
+
 
     public int calculateRibbon(String input)
     {
@@ -70,16 +68,13 @@ public class Wrapper
         return ribbon + bow;
     }
 
+
     public int calculateTotalRibbon(List<String> input)
     {
-        int totalRibbon = 0;
-
-        for(String line : input)
-        {
-            totalRibbon += calculateRibbon(line);
-        }
-
-        return totalRibbon;
+        return input
+            .stream()
+            .mapToInt(this::calculateRibbon)
+            .sum();
     }
 
     private List<Integer> parseInput(String input)
