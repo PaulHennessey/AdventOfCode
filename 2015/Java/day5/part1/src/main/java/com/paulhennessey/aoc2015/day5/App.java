@@ -2,62 +2,50 @@ package com.paulhennessey.aoc2015.day5;
 
 import java.io.Console;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-public class App 
-{
-    public App() 
-    {}
+public class App {
+    public App() {
+    }
 
-    private boolean processRegex(String regex, String input)
-    {
+    private boolean processRegex(String regex, String input) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
         return matcher.find();
     }
 
-    public boolean containsDisallowedSubstrings(String s)
-    {
+    public boolean containsDisallowedSubstrings(String s) {
         return processRegex("(ab|cd|pq|xy)", s);
     }
 
-    public boolean containsConsecutiveCharacters(String s)
-    {
+    public boolean containsConsecutiveCharacters(String s) {
         return processRegex("(.)\\1", s);
     }
 
-    public boolean containsThreeVowels(String s)
-    {
+    public boolean containsThreeVowels(String s) {
         return processRegex("(.*[aeiou]){3,}", s);
     }
 
-    public boolean stringIsNice(String s)
-    {
-        if(!containsDisallowedSubstrings(s) && containsConsecutiveCharacters(s) && containsThreeVowels(s))
-        {
-            return true;    
-        }
-
-        return false;
+    public boolean stringIsNice(String s) {
+        return !containsDisallowedSubstrings(s) && containsConsecutiveCharacters(s) && containsThreeVowels(s);
     }
 
-    public int countNiceStrings(List<String> input)
-    {
-        int count = 0;
+    public int countNiceStrings(List<String> input) {
+        AtomicInteger count = new AtomicInteger();
 
-        for(String line : input)
+        input.forEach(line ->
         {
-            if(stringIsNice(line))
-            {
-                count++;
+            if (stringIsNice(line)) {
+                count.getAndIncrement();
             }
-        }
+        });
 
-        return count;
+        return count.get();
     }
-    
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         Console console = System.console();
         if (console == null) {
             System.err.println("No console.");
@@ -65,23 +53,23 @@ public class App
         }
         while (true) {
 
-            Pattern pattern = 
-            Pattern.compile(console.readLine("%nEnter your regex: "));
+            Pattern pattern =
+                Pattern.compile(console.readLine("%nEnter your regex: "));
 
-            Matcher matcher = 
-            pattern.matcher(console.readLine("Enter input string to search: "));
+            Matcher matcher =
+                pattern.matcher(console.readLine("Enter input string to search: "));
 
             boolean found = false;
             while (matcher.find()) {
                 console.format("I found the text" +
-                    " \"%s\" starting at " +
-                    "index %d and ending at index %d.%n",
+                        " \"%s\" starting at " +
+                        "index %d and ending at index %d.%n",
                     matcher.group(),
                     matcher.start(),
                     matcher.end());
                 found = true;
             }
-            if(!found){
+            if (!found) {
                 console.format("No match found.%n");
             }
         }

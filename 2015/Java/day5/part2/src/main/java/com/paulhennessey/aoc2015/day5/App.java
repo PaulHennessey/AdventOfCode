@@ -2,12 +2,13 @@ package com.paulhennessey.aoc2015.day5;
 
 import java.io.Console;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-public class App 
+public class App
 {
-    public App() 
+    public App()
     {}
 
     private boolean processRegex(String regex, String input)
@@ -29,29 +30,24 @@ public class App
 
     public boolean stringIsNice(String s)
     {
-        if(containsDoublePair(s) && containsTriplet(s))
-        {
-            return true;    
-        }
-
-        return false;
+        return containsDoublePair(s) && containsTriplet(s);
     }
 
     public int countNiceStrings(List<String> input)
     {
-        int count = 0;
+        AtomicInteger count = new AtomicInteger();
 
-        for(String line : input)
+        input.forEach(line ->
         {
             if(stringIsNice(line))
             {
-                count++;
+                count.getAndIncrement();
             }
-        }
+        });
 
-        return count;
+        return count.get();
     }
-    
+
     public static void main(String[] args){
         Console console = System.console();
         if (console == null) {
@@ -60,10 +56,10 @@ public class App
         }
         while (true) {
 
-            Pattern pattern = 
+            Pattern pattern =
             Pattern.compile(console.readLine("%nEnter your regex: "));
 
-            Matcher matcher = 
+            Matcher matcher =
             pattern.matcher(console.readLine("Enter input string to search: "));
 
             boolean found = false;
